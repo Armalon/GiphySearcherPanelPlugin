@@ -44,6 +44,12 @@ class SimplePanel extends React.Component<Props, State> {
               height: ${this.props.height/4}px;
             `} />
           </div>
+          <div className={styles.nothingFound}>Nothing found</div>
+          <div className={styles.errorMessage}>
+            Error happened
+            <br/>
+            <img src="https://media3.giphy.com/media/xTiTnlVOJVXE3blRoQ/giphy-downsized.gif?cid=10194ca1vrpyb7og2r8beymew74ejn4r9d870aywnjs6iesn&rid=giphy-downsized.gif" />
+          </div>
         </div>
       </div>
     );
@@ -91,6 +97,16 @@ const getStyles = stylesFactory(() => {
     `,
     loader: css`
       text-align: center;
+    `,
+    nothingFound: css`
+      text-align: center;
+      padding: 30px 0 0 0;
+      font-size: 14pt;
+    `,
+    errorMessage: css`
+      text-align: center;
+      padding: 30px 0 0 0;
+      font-size: 14pt;
     `,
   };
 });
