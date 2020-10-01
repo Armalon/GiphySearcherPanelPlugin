@@ -74,7 +74,9 @@ class SimplePanel extends React.Component<Props, State> {
           `
           )}>
             {this.state.data ? this.state.data.map((el: OurGiphyObject) => <div key={el.id}>
-                <img src={el.url} />
+                <a href={el.url} target="_blank">
+                  <img src={el.url} />
+                </a>
               </div>
             ) : ''}
           </div>
@@ -168,7 +170,7 @@ const getStyles = stylesFactory(() => {
       & > div {
         overflow-x: hidden;
         margin: 5px;
-        & > img {
+        & > a > img {
           object-fit: cover;
           width: 100%;
           height: 100%;
