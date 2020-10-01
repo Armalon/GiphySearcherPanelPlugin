@@ -106,6 +106,7 @@ class SimplePanel extends React.Component<Props, State> {
       params: {
         api_key: 'CCz8gcPTfNtTpqtaLpK7yQldL7FiqRnT',
         q: this.state.inputText,
+        limit: (this.props.options.searchLimit <= 100 ? this.props.options.searchLimit : 100),
       }
     })
     .then((response) => {
