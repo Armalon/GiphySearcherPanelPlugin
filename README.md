@@ -20,3 +20,5 @@ Using Docker:
 1. Open Grafana at http://localhost:3000/
 1. Log in with username "admin" and password "admin"
 1. Create new dashboard and add the plugin
+
+For running tests type: `npm test`
