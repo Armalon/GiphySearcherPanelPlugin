@@ -50,6 +50,30 @@ class SimplePanel extends React.Component<Props, State> {
             <br/>
             <img src="https://media3.giphy.com/media/xTiTnlVOJVXE3blRoQ/giphy-downsized.gif?cid=10194ca1vrpyb7og2r8beymew74ejn4r9d870aywnjs6iesn&rid=giphy-downsized.gif" />
           </div>
+          <div className={cx(
+            styles.result,
+            css`
+            & > div {
+              height: ${this.props.height/4}px;
+              max-width: ${this.props.width}px;
+              border: 1px solid white;
+              min-width: ${this.props.height/4}px;
+            }
+          `
+          )}>
+            <div>
+              <img src="https://media0.giphy.com/media/127h8dMHnk5H5C/200.webp?cid=ecf05e479rya9wd1wzeg5x9ywwmcb9d5mw1hbm6elxqq344b&rid=200.webp" />
+            </div>
+            <div>
+              <img src="https://media4.giphy.com/media/rAKdqZ8nfiaZi/200w.gif?cid=ecf05e479rya9wd1wzeg5x9ywwmcb9d5mw1hbm6elxqq344b&rid=200w.gif" />
+            </div>
+            <div>
+              <img src="https://media0.giphy.com/media/80dF8fSDEdDG0/giphy.webp?cid=ecf05e479rya9wd1wzeg5x9ywwmcb9d5mw1hbm6elxqq344b&rid=giphy.webp" />
+            </div>
+            <div>
+              <img src="https://media0.giphy.com/media/2BSqMC8JEEeK4/200w.webp?cid=ecf05e479rya9wd1wzeg5x9ywwmcb9d5mw1hbm6elxqq344b&rid=200w.webp" />
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -107,6 +131,19 @@ const getStyles = stylesFactory(() => {
       text-align: center;
       padding: 30px 0 0 0;
       font-size: 14pt;
+    `,
+    result: css`
+      display: flex;
+      flex-wrap: wrap;
+      & > div {
+        overflow-x: hidden;
+        margin: 5px;
+        & > img {
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+        }
+      }
     `,
   };
 });
