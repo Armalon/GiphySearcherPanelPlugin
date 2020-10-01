@@ -58,7 +58,7 @@ class SimplePanel extends React.Component<Props, State> {
               height: ${this.props.height/4}px;
             `} /> : ''}
           </div>
-          <div className={styles.nothingFound}>Nothing found</div>
+          {this.state.data !== null && !this.state.data.length ? <div className={styles.nothingFound}>Nothing found</div> : ''}
           {this.state.isError ? <div className={styles.errorMessage}>
             Error happened
             <br/>
