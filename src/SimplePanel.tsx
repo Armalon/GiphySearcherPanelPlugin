@@ -11,6 +11,7 @@ import axios from './api/api'
 interface Props extends PanelProps<SimpleOptions> {}
 interface State {
   isLoading: boolean;
+  isError: boolean;
   inputText: string;
   data: OurGiphyObject[] | null;
 }
@@ -18,6 +19,7 @@ interface State {
 class SimplePanel extends React.Component<Props, State> {
   public readonly state: Readonly<State> = {
     isLoading: false,
+    isError: false,
     inputText: '',
     data: null,
   }
@@ -57,11 +59,11 @@ class SimplePanel extends React.Component<Props, State> {
             `} /> : ''}
           </div>
           <div className={styles.nothingFound}>Nothing found</div>
-          <div className={styles.errorMessage}>
+          {this.state.isError ? <div className={styles.errorMessage}>
             Error happened
             <br/>
             <img src="https://media3.giphy.com/media/xTiTnlVOJVXE3blRoQ/giphy-downsized.gif?cid=10194ca1vrpyb7og2r8beymew74ejn4r9d870aywnjs6iesn&rid=giphy-downsized.gif" />
-          </div>
+          </div> : ''}
           <div className={cx(
             styles.result,
             css`
@@ -94,6 +96,8 @@ class SimplePanel extends React.Component<Props, State> {
 
     this.setState({
       isLoading: true,
+      isError: false,
+      data: null
     })
 
     axios.get<GiphyResponse>('', {
@@ -109,6 +113,16 @@ class SimplePanel extends React.Component<Props, State> {
         data: data.map((el: GiphyObject) => {
           return (({ id, images }: GiphyObject):OurGiphyObject => ({ id, url: images.downsized.url }))(el)
         })
+      })
+    })
+    .catch(() => {
+      this.setState({
+        isError: true
+      })
+    })
+    .finally(() => {
+      this.setState({
+        isLoading: false
       })
     });
   }
