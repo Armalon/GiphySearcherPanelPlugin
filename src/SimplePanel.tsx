@@ -57,7 +57,7 @@ class SimplePanel extends React.Component<Props, State> {
           <div className={styles.loader}>
             {this.state.isLoading ? <img src={GiphyLoader} className={css`
               height: ${this.props.height/4}px;
-            `} /> : ''}
+            `} id='loader' /> : ''}
           </div>
           {this.state.data !== null && !this.state.data.length ? <div className={styles.nothingFound}>Nothing found</div> : ''}
           {this.state.isError ? <div className={styles.errorMessage}>
@@ -76,7 +76,7 @@ class SimplePanel extends React.Component<Props, State> {
               background: url(${ImageLoader}) center center no-repeat;
             }
           `
-          )}>
+          )} id='results'>
             {this.state.data ? this.state.data.map((el: OurGiphyObject) => <div key={el.id}>
                 <a href={el.url} target="_blank">
                   <img src={el.url} loading="lazy" />

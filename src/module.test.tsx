@@ -27,5 +27,21 @@ describe('[UNIT] Testing the SimplePanel component', () => {
       expect(wrapper.find('form button').prop('disabled')).toBeFalsy()
       expect(wrapper.state('inputText')).toBe('boobs')
     });
+
+    it('loader is shown an request processed', async () => {
+      wrapper.find('form input[type="search"]').simulate('change', {
+        target: { value: 'boobs' }
+      })
+      wrapper.find('form').simulate('submit')
+      expect(wrapper.find('#loader').exists()).toBeTruthy()
+
+      // Wait all promises to complete hack
+      await (() => new Promise(setImmediate))()
+
+      // within `setImmediate` all of the promises have been exhausted
+      wrapper.update()
+
+      expect(wrapper.find('#results div').length).toBeGreaterThan(0)
+    });
   });
 });
