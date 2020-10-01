@@ -73,18 +73,10 @@ class SimplePanel extends React.Component<Props, State> {
             }
           `
           )}>
-            <div>
-              <img src="https://media0.giphy.com/media/127h8dMHnk5H5C/200.webp?cid=ecf05e479rya9wd1wzeg5x9ywwmcb9d5mw1hbm6elxqq344b&rid=200.webp" />
-            </div>
-            <div>
-              <img src="https://media4.giphy.com/media/rAKdqZ8nfiaZi/200w.gif?cid=ecf05e479rya9wd1wzeg5x9ywwmcb9d5mw1hbm6elxqq344b&rid=200w.gif" />
-            </div>
-            <div>
-              <img src="https://media0.giphy.com/media/80dF8fSDEdDG0/giphy.webp?cid=ecf05e479rya9wd1wzeg5x9ywwmcb9d5mw1hbm6elxqq344b&rid=giphy.webp" />
-            </div>
-            <div>
-              <img src="https://media0.giphy.com/media/2BSqMC8JEEeK4/200w.webp?cid=ecf05e479rya9wd1wzeg5x9ywwmcb9d5mw1hbm6elxqq344b&rid=200w.webp" />
-            </div>
+            {this.state.data ? this.state.data.map((el: OurGiphyObject) => <div key={el.id}>
+                <img src={el.url} />
+              </div>
+            ) : ''}
           </div>
         </div>
       </div>
