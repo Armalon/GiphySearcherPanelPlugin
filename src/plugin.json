@@ -1,6 +1,6 @@
 {
   "type": "panel",
-  "name": "giphy-searcher-plugin",
+  "name": "Giphy Searcher",
   "id": "armalong-giphy-searcher-plugin",
   "info": {
     "description": "This panel shows giphy's images searched by keyword",
