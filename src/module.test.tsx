@@ -19,5 +19,13 @@ describe('[UNIT] Testing the SimplePanel component', () => {
       expect(wrapper.find('form button').prop('disabled')).toBeTruthy()
       expect(wrapper.find('form button svg').exists()).toBeTruthy()
     });
+
+    it('search input is responsive', () => {
+      wrapper.find('form input[type="search"]').simulate('change', {
+        target: { value: 'boobs' }
+      })
+      expect(wrapper.find('form button').prop('disabled')).toBeFalsy()
+      expect(wrapper.state('inputText')).toBe('boobs')
+    });
   });
 });
