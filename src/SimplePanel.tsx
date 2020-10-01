@@ -5,6 +5,7 @@ import { css, cx } from 'emotion';
 import {stylesFactory} from '@grafana/ui';
 
 import GiphyLoader from './img/giphy_loader.svg'
+import ImageLoader from './img/image_loader.svg'
 
 import axios from './api/api'
 
@@ -72,12 +73,13 @@ class SimplePanel extends React.Component<Props, State> {
               max-width: ${this.props.width}px;
               border: 1px solid white;
               min-width: ${this.props.height/4}px;
+              background: url(${ImageLoader}) center center no-repeat;
             }
           `
           )}>
             {this.state.data ? this.state.data.map((el: OurGiphyObject) => <div key={el.id}>
                 <a href={el.url} target="_blank">
-                  <img src={el.url} />
+                  <img src={el.url} loading="lazy" />
                 </a>
               </div>
             ) : ''}
