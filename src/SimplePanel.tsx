@@ -1,10 +1,12 @@
 import React from 'react';
 import { PanelProps } from '@grafana/data';
-import { SimpleOptions } from 'types';
+import { SimpleOptions, GiphyResponse } from 'types';
 import { css, cx } from 'emotion';
 import {stylesFactory} from '@grafana/ui';
 
 import GiphyLoader from './img/giphy_loader.svg'
+
+import axios from './api/api'
 
 interface Props extends PanelProps<SimpleOptions> {}
 interface State {
@@ -97,6 +99,16 @@ class SimplePanel extends React.Component<Props, State> {
     this.setState({
       isLoading: true,
     })
+
+    axios.get<GiphyResponse>('', {
+      params: {
+        api_key: 'CCz8gcPTfNtTpqtaLpK7yQldL7FiqRnT',
+        q: this.state.inputText,
+      }
+    })
+    .then((response) => {
+      console.log('response', response)
+    });
   }
 
   handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {

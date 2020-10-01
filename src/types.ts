@@ -5,3 +5,18 @@ export interface SimpleOptions {
   showSeriesCount: boolean;
   seriesCountSize: SeriesSize;
 }
+
+export type GiphyResponse = {
+  data: GiphyObject[]
+}
+
+export type GiphyObject = {
+  id: number,
+  type: string,
+  url: string,
+  images: {
+    downsized: {
+      url: string
+    }
+  }
+}
