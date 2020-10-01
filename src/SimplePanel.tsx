@@ -1,6 +1,6 @@
 import React from 'react';
 import { PanelProps } from '@grafana/data';
-import { SimpleOptions, GiphyResponse } from 'types';
+import { SimpleOptions, GiphyResponse, GiphyObject, OurGiphyObject } from 'types';
 import { css, cx } from 'emotion';
 import {stylesFactory} from '@grafana/ui';
 
@@ -12,12 +12,14 @@ interface Props extends PanelProps<SimpleOptions> {}
 interface State {
   isLoading: boolean;
   inputText: string;
+  data: OurGiphyObject[] | null;
 }
 
 class SimplePanel extends React.Component<Props, State> {
   public readonly state: Readonly<State> = {
     isLoading: false,
     inputText: '',
+    data: null,
   }
 
   render() {
@@ -107,7 +109,13 @@ class SimplePanel extends React.Component<Props, State> {
       }
     })
     .then((response) => {
-      console.log('response', response)
+      const data = response.data.data
+      // Keeping only fields we need in state
+      this.setState({
+        data: data.map((el: GiphyObject) => {
+          return (({ id, images }: GiphyObject):OurGiphyObject => ({ id, url: images.downsized.url }))(el)
+        })
+      })
     });
   }
 

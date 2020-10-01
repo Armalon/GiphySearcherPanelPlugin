@@ -20,3 +20,8 @@ export type GiphyObject = {
     }
   }
 }
+
+export type OurGiphyObject = {
+  id: number,
+  url: string,
+}
