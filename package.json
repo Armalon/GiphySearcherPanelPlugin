@@ -8,6 +8,11 @@
     "dev": "grafana-toolkit plugin:dev",
     "watch": "grafana-toolkit plugin:dev --watch"
   },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js"
+    }
+  },
   "repository": "github:grafana/simple-react-panel",
   "author": "Armalon",
   "license": "Apache-2.0",
@@ -19,7 +24,11 @@
     "@grafana/data": "7.0.1",
     "@grafana/toolkit": "7.0.1",
     "@grafana/ui": "7.0.1",
-    "emotion": "10.0.27"
+    "@types/enzyme": "^3.10.7",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "emotion": "10.0.27",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.5"
   },
   "engines": {
     "node": ">=12 <13"
