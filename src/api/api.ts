@@ -7,7 +7,7 @@ const instance: AxiosInstance = axios.create({
   params: {
     // DOESNt work(
     // api_key: 'CCz8gcPTfNtTpqtaLpK7yQldL7FiqRnT',
-  }
+  },
 });
 
-export default instance
+export default instance;

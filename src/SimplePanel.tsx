@@ -2,12 +2,12 @@ import React from 'react';
 import { PanelProps } from '@grafana/data';
 import { SimpleOptions, GiphyResponse, GiphyObject, OurGiphyObject } from 'types';
 import { css, cx } from 'emotion';
-import {stylesFactory} from '@grafana/ui';
+import { stylesFactory } from '@grafana/ui';
 
-import GiphyLoader from './img/giphy_loader.svg'
-import ImageLoader from './img/image_loader.svg'
+import GiphyLoader from './img/giphy_loader.svg';
+import ImageLoader from './img/image_loader.svg';
 
-import axios from './api/api'
+import axios from './api/api';
 
 interface Props extends PanelProps<SimpleOptions> {}
 interface State {
@@ -18,12 +18,12 @@ interface State {
 }
 
 class SimplePanel extends React.Component<Props, State> {
-  public readonly state: Readonly<State> = {
+  readonly state: Readonly<State> = {
     isLoading: false,
     isError: false,
     inputText: '',
     data: null,
-  }
+  };
 
   render() {
     const styles = getStyles();
@@ -38,51 +38,78 @@ class SimplePanel extends React.Component<Props, State> {
           `
         )}
       >
-        <div className={cx(
-          styles.wrapperChild,
-          css`
-          height: ${this.props.height}px;
-        `
-        )}>
+        <div
+          className={cx(
+            styles.wrapperChild,
+            css`
+              height: ${this.props.height}px;
+            `
+          )}
+        >
           <form onSubmit={this.handleFormSubmit} className={styles.form}>
             <input
               type="search"
               placeholder="Please enter keyword"
               value={this.state.inputText}
-              onChange={this.handleTextChange} />
+              onChange={this.handleTextChange}
+            />
             <button disabled={!this.state.inputText.trim().length}>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path d="M 21 3 C 11.601563 3 4 10.601563 4 20 C 4 29.398438 11.601563 37 21 37 C 24.355469 37 27.460938 36.015625 30.09375 34.34375 L 42.375 46.625 L 46.625 42.375 L 34.5 30.28125 C 36.679688 27.421875 38 23.878906 38 20 C 38 10.601563 30.398438 3 21 3 Z M 21 7 C 28.199219 7 34 12.800781 34 20 C 34 27.199219 28.199219 33 21 33 C 13.800781 33 8 27.199219 8 20 C 8 12.800781 13.800781 7 21 7 Z"></path></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                <path d="M 21 3 C 11.601563 3 4 10.601563 4 20 C 4 29.398438 11.601563 37 21 37 C 24.355469 37 27.460938 36.015625 30.09375 34.34375 L 42.375 46.625 L 46.625 42.375 L 34.5 30.28125 C 36.679688 27.421875 38 23.878906 38 20 C 38 10.601563 30.398438 3 21 3 Z M 21 7 C 28.199219 7 34 12.800781 34 20 C 34 27.199219 28.199219 33 21 33 C 13.800781 33 8 27.199219 8 20 C 8 12.800781 13.800781 7 21 7 Z"></path>
+              </svg>
             </button>
           </form>
           <div className={styles.loader}>
-            {this.state.isLoading ? <img src={GiphyLoader} className={css`
-              height: ${this.props.height/4}px;
-            `} id='loader' /> : ''}
+            {this.state.isLoading ? (
+              <img
+                src={GiphyLoader}
+                className={css`
+                  height: ${this.props.height / 4}px;
+                `}
+                id="loader"
+              />
+            ) : (
+              ''
+            )}
           </div>
-          {this.state.data !== null && !this.state.data.length ? <div className={styles.nothingFound}>Nothing found</div> : ''}
-          {this.state.isError ? <div className={styles.errorMessage}>
-            Error happened
-            <br/>
-            <img src="https://media3.giphy.com/media/xTiTnlVOJVXE3blRoQ/giphy-downsized.gif?cid=10194ca1vrpyb7og2r8beymew74ejn4r9d870aywnjs6iesn&rid=giphy-downsized.gif" />
-          </div> : ''}
-          <div className={cx(
-            styles.result,
-            css`
-            & > div {
-              height: ${this.props.height/4}px;
-              max-width: ${this.props.width}px;
-              border: 1px solid white;
-              min-width: ${this.props.height/4}px;
-              background: url(${ImageLoader}) center center no-repeat;
-            }
-          `
-          )} id='results'>
-            {this.state.data ? this.state.data.map((el: OurGiphyObject) => <div key={el.id}>
-                <a href={el.url} target="_blank">
-                  <img src={el.url} loading="lazy" />
-                </a>
-              </div>
-            ) : ''}
+          {this.state.data !== null && !this.state.data.length ? (
+            <div className={styles.nothingFound}>Nothing found</div>
+          ) : (
+            ''
+          )}
+          {this.state.isError ? (
+            <div className={styles.errorMessage}>
+              Error happened
+              <br />
+              <img src="https://media3.giphy.com/media/xTiTnlVOJVXE3blRoQ/giphy-downsized.gif?cid=10194ca1vrpyb7og2r8beymew74ejn4r9d870aywnjs6iesn&rid=giphy-downsized.gif" />
+            </div>
+          ) : (
+            ''
+          )}
+          <div
+            className={cx(
+              styles.result,
+              css`
+                & > div {
+                  height: ${this.props.height / 4}px;
+                  max-width: ${this.props.width}px;
+                  border: 1px solid white;
+                  min-width: ${this.props.height / 4}px;
+                  background: url(${ImageLoader}) center center no-repeat;
+                }
+              `
+            )}
+            id="results"
+          >
+            {this.state.data
+              ? this.state.data.map((el: OurGiphyObject) => (
+                  <div key={el.id}>
+                    <a href={el.url} target="_blank">
+                      <img src={el.url} loading="lazy" />
+                    </a>
+                  </div>
+                ))
+              : ''}
           </div>
         </div>
       </div>
@@ -90,54 +117,55 @@ class SimplePanel extends React.Component<Props, State> {
   }
 
   handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event && event.preventDefault()
+    event && event.preventDefault();
 
     if (this.state.isLoading) {
-      return
+      return;
     }
 
     this.setState({
       isLoading: true,
       isError: false,
-      data: null
-    })
-
-    axios.get<GiphyResponse>('', {
-      params: {
-        api_key: 'CCz8gcPTfNtTpqtaLpK7yQldL7FiqRnT',
-        q: this.state.inputText,
-        limit: (this.props.options.searchLimit <= 100 ? this.props.options.searchLimit : 100),
-      }
-    })
-    .then((response) => {
-      const data = response.data.data
-      // Keeping only fields we need in state
-      this.setState({
-        data: data.map((el: GiphyObject) => {
-          return (({ id, images }: GiphyObject):OurGiphyObject => ({ id, url: images.downsized.url }))(el)
-        })
-      })
-    })
-    .catch(() => {
-      this.setState({
-        isError: true
-      })
-    })
-    .finally(() => {
-      this.setState({
-        isLoading: false
-      })
+      data: null,
     });
-  }
+
+    axios
+      .get<GiphyResponse>('', {
+        params: {
+          api_key: 'CCz8gcPTfNtTpqtaLpK7yQldL7FiqRnT',
+          q: this.state.inputText,
+          limit: this.props.options.searchLimit <= 100 ? this.props.options.searchLimit : 100,
+        },
+      })
+      .then(response => {
+        const data = response.data.data;
+        // Keeping only fields we need in state
+        this.setState({
+          data: data.map((el: GiphyObject) => {
+            return (({ id, images }: GiphyObject): OurGiphyObject => ({ id, url: images.downsized.url }))(el);
+          }),
+        });
+      })
+      .catch(() => {
+        this.setState({
+          isError: true,
+        });
+      })
+      .finally(() => {
+        this.setState({
+          isLoading: false,
+        });
+      });
+  };
 
   handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
-      inputText: event.target.value
+      inputText: event.target.value,
     });
-  }
+  };
 }
 
-export { SimplePanel }
+export { SimplePanel };
 
 const getStyles = stylesFactory(() => {
   return {
@@ -150,7 +178,7 @@ const getStyles = stylesFactory(() => {
     `,
     form: css`
       display: flex;
-      & > input[type=search] {
+      & > input[type='search'] {
         width: 100%;
         font-size: 16pt;
       }

@@ -16,32 +16,32 @@ describe('[UNIT] Testing the SimplePanel component', () => {
     it('Has the search form', () => {
       expect(wrapper.find('form input[type="search"]').prop('placeholder')).toBe('Please enter keyword');
       // disabled at first
-      expect(wrapper.find('form button').prop('disabled')).toBeTruthy()
-      expect(wrapper.find('form button svg').exists()).toBeTruthy()
+      expect(wrapper.find('form button').prop('disabled')).toBeTruthy();
+      expect(wrapper.find('form button svg').exists()).toBeTruthy();
     });
 
     it('search input is responsive', () => {
       wrapper.find('form input[type="search"]').simulate('change', {
-        target: { value: 'boobs' }
-      })
-      expect(wrapper.find('form button').prop('disabled')).toBeFalsy()
-      expect(wrapper.state('inputText')).toBe('boobs')
+        target: { value: 'boobs' },
+      });
+      expect(wrapper.find('form button').prop('disabled')).toBeFalsy();
+      expect(wrapper.state('inputText')).toBe('boobs');
     });
 
     it('loader is shown an request processed', async () => {
       wrapper.find('form input[type="search"]').simulate('change', {
-        target: { value: 'boobs' }
-      })
-      wrapper.find('form').simulate('submit')
-      expect(wrapper.find('#loader').exists()).toBeTruthy()
+        target: { value: 'boobs' },
+      });
+      wrapper.find('form').simulate('submit');
+      expect(wrapper.find('#loader').exists()).toBeTruthy();
 
       // Wait all promises to complete hack
-      await (() => new Promise(setImmediate))()
+      await (() => new Promise(setImmediate))();
 
       // within `setImmediate` all of the promises have been exhausted
-      wrapper.update()
+      wrapper.update();
 
-      expect(wrapper.find('#results div').length).toBeGreaterThan(0)
+      expect(wrapper.find('#results div').length).toBeGreaterThan(0);
     });
   });
 });
